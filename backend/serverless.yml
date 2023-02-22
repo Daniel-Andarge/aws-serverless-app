@@ -9,13 +9,10 @@ plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-plugin-tracing
-  #- serverless-aws-documentation
-  #- serverless-reqvalidator-plugin
-  #- serverless-plugin-typescript
+ 
 
 provider:
   name: aws
-  #runtime: nodejs12.x
   runtime: nodejs14.x
   # lambdaHashingVersion: '20201221'
 
@@ -49,29 +46,7 @@ provider:
             - xray:PutTraceSegments
           Resource: "*"
 
-# custom:
-#   documentation:
-#     api:
-#       info:
-#         version: v1.0.0
-#         title: Udacity Todos api
-#         description: Serverless todo application for udacity
-#     models:
-#       - name: CreateTodo
-#         contentType: application/json
-#         schema: ${file(models/create-todo-model.json)}
-#       - name: UpdateTodo
-#         contentType: application/json
-#         schema: ${file(models/update-todo-model.json)}
-
 functions:
-  
-  # hello:
-  #   handler: handler.hello
-  #   events: 
-  #     - httpApi:
-  #         path: /
-  #         method: get
 
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
@@ -113,12 +88,6 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
-          # reqValidatorName: RequestBodyValidator
-          # documentation:
-            # summary: Create a new Todo
-            # description: Create a new Todo
-            # requestModels:
-              # 'application/json': CreateTodo
           request:
             schemas:
               application/json: ${file(models/create-todo-model.json)}
@@ -147,12 +116,7 @@ functions:
           request:
             schemas:
               application/json: ${file(models/update-todo-model.json)}
-          # reqValidatorName: RequestBodyValidator
-          # documentation:
-            # summary: Update Todo
-            # description: Update Todo
-            # requestModels:
-              # 'application/json': UpdateTodo
+       
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-update-todo-role-${self:provider.stage}
     iamRoleStatements:
       - Effect: Allow        
@@ -243,19 +207,6 @@ resources:
         RestApiId:
           Ref: 'ApiGatewayRestApi'
 
-    # RequestBodyValidator:
-    #   Type: AWS::ApiGateway::RequestValidator
-    #   Properties:
-    #     Name: 'request-body-validator'
-    #     RestApiId:
-    #       Ref: ApiGatewayRestApi
-    #     ValidateRequestBody: true
-    #     ValidateRequestParameters: false
-        
-    # TODO: Create a DynamoDB table with local secondary index and a composite key
-    # TodosTable:
-    #   Type: AWS::DynamoDB::Table
-    #   Properties:
 
     TodosTable:
       Type: AWS::DynamoDB::Table
