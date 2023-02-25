@@ -1,30 +1,29 @@
-# TODO: Change the name of the org 
+# Serverless.yml
+
 org: danserverless
 app: serverless-todo-app
 service: serverless-todo-app
 frameworkVersion: '3.27.0'
 
-
+# Defining plugins 
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-plugin-tracing
  
-
+# Defining cloud provider details 
 provider:
   name: aws
   runtime: nodejs14.x
-  # lambdaHashingVersion: '20201221'
-
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-2'}
 
-  tracing:
+ #  X-Ray Tracing
+ tracing:
     lambda: true
     apiGateway: true
 
-  # Use these variables in the functions and resouorces section below. For example, 
-  # ${self:provider.environment.ATTACHMENT_S3_BUCKET}
+ # Defining environment variables
   environment:
     TODOS_TABLE: Todos-serverless-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
@@ -32,9 +31,9 @@ provider:
     SIGNED_URL_EXPIRATION: 300
     PROJECT_NAME: serverless-todo-app
     INDEX_NAME: ${self:provider.environment.TODOS_CREATED_AT_INDEX}
-
+ 
+# Enabling API Gateway logs
   logs:
-    # Enable API Gateway logs
     restApi: true
 
   iam:
@@ -46,13 +45,14 @@ provider:
             - xray:PutTraceSegments
           Resource: "*"
 
+# Defining functions 
 functions:
 
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
- # TODO: Configure this function - 
- # Provide iamRoleStatements property for performing Actions on DynamoDB
+  
+ # Providing iamRoleStatements property for performing Actions on DynamoDB
   GetTodos:
     handler: src/lambda/http/getTodos.handler
     events:
@@ -76,10 +76,6 @@ functions:
           - xray:PutTraceSegments        
         Resource: '*'
 
-  # TODO: Configure this function - 
-  # Provide iamRoleStatements property. Decide the Actions and AWS Resource. 
-  # To refer to an AWS resource defined in the "Resources" section, you can use "Resource: !GetAtt <resource-name>.Arn"
-  # To validate incoming HTTP requests, we have provided the request schemas in function definition below. 
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
     events:
@@ -103,8 +99,6 @@ functions:
         Resource: '*'
 
 
- # TODO: Configure this function
- # Provide property for setting up CORS, Authorizer, iamRoleStatements, and request schemas
   UpdateTodo:
     handler: src/lambda/http/updateTodo.handler
     events:
@@ -128,9 +122,6 @@ functions:
           - xray:PutTraceSegments        
         Resource: '*'
 
-
- # TODO: Configure this function
- # Provide property for setting up CORS, Authorizer, iamRoleStatements
   DeleteTodo:
     handler: src/lambda/http/deleteTodo.handler
     events:
@@ -150,8 +141,6 @@ functions:
           - xray:PutTraceSegments        
         Resource: '*'
 
- # TODO: Configure this function
- # Provide property for setting up CORS, Authorizer, iamRoleStatements
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
     events:
@@ -171,20 +160,14 @@ functions:
           - dynamodb:Query
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
-      # - Effect: Allow
-        # Action:
-          # - s3:PutObject
-        # Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENTS_S3_BUCKET}/*
       - Effect: Allow        
         Action:
           - xray:PutTraceSegments        
         Resource: '*'
 
+# providing resources needed by the app
 resources:
   Resources:
-    # Add necessary AWS resources. You will need at least the following AWS resources
-    # TODO: Fill the properties
-    # Feel free to change the names as you like. 
     GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
@@ -235,12 +218,6 @@ resources:
             Projection:
               ProjectionType: ALL
 
-    # TODO: Complete the bucket properties below. 
-    # Do not forget to add the CorsConfiguration propoerty
-    # AttachmentsBucket:
-    #   Type: AWS::S3::Bucket
-    #   Properties:
-
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
@@ -260,11 +237,6 @@ resources:
                 - HEAD
               MaxAge: 3000
 
-    # TODO: Complete the policy below and attach it to the bucket defined above
-    # For cross referencing the name of the bucket, use "!Ref AttachmentsBucket"
-    # BucketPolicy:
-    #   Type: AWS::S3::BucketPolicy
-    #   Properties:
 
     BucketPolicy:
       Type: AWS::S3::BucketPolicy
