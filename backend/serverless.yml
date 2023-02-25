@@ -1,5 +1,4 @@
 # Serverless.yml
-
 org: danserverless
 app: serverless-todo-app
 service: serverless-todo-app
@@ -18,7 +17,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-2'}
 
- #  X-Ray Tracing
+ # X-Ray Tracing
  tracing:
     lambda: true
     apiGateway: true
@@ -45,7 +44,7 @@ provider:
             - xray:PutTraceSegments
           Resource: "*"
 
-# Defining functions 
+# Defining functions and Providing iamRoleStatements
 functions:
 
   Auth:
