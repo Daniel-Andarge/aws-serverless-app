@@ -3,6 +3,46 @@
 ## Project Overview
 This project involves the development and deployment of a Serverless and Event-driven Application on AWS using AWS Lambda and the Serverless framework. The application is  a TODO application that allows users to create, read, update, and delete TODO items, with the ability to attach images to each item.
 
+
+## Technologies and Tools Used
+This project leverages a wide range of technologies and tools, from development to deployment:
+
+1. **Development Technologies and Tools**:
+   - **Programming Languages**:
+     - JavaScript
+     - TypeScript
+   - **Frontend Framework**:
+     - React.js
+   - **Backend Runtime**:
+     - Node.js
+
+2. **Serverless Framework and AWS Services**:
+   - **Serverless Framework**: Used to manage and deploy the serverless application.
+   - **AWS Lambda**: Serverless compute service for running the application's backend functions.
+   - **AWS API Gateway**: Managed API service for handling the application's API endpoints.
+   - **AWS DynamoDB**: NoSQL database service for storing the TODO items.
+   - **AWS S3**: Object storage service for storing attachments (e.g., images) associated with TODO items.
+   - **AWS Cognito**: User authentication and authorization service for implementing user authentication.
+   - **AWS CloudFormation**: Infrastructure as code service for provisioning and managing the required AWS resources.
+   - **AWS IAM**: Identity and Access Management service for managing permissions and roles.
+   - **AWS CloudWatch**: Logging and monitoring service for the serverless application.
+
+3. **Authentication Service**:
+   - **Auth0**: External authentication service for implementing user authentication and authorization.
+
+4. **Development and Testing Tools**:
+   - **Code Editor**: Your preferred code editor, such as Visual Studio Code, Sublime Text, or IntelliJ IDEA.
+   - **Git**: Version control system for tracking code changes and collaborating.
+   - **npm**: Package manager for managing Node.js dependencies.
+   - **Jest**: Testing framework for unit testing the application's components.
+   - **Cypress**: End-to-end testing framework for testing the application's functionality.
+
+5. **Deployment and Infrastructure Tools**:
+   - **Serverless Framework CLI**: Command-line interface for the Serverless framework, used to deploy the application.
+   - **AWS CLI**: Command-line interface for interacting with AWS services and managing resources.
+   - **AWS Management Console**: Web-based interface for managing and monitoring AWS resources.
+
+
 ## Frontend
 The `client` folder contains a web application that can interact with the API developed as part of this project. This frontend should work seamlessly with the serverless application.
 
@@ -134,4 +174,4 @@ Provide variables for the collection (similarly to how this was done in the cour
 
 
 ## Conclusion
-This project demonstrates the development and deployment of a Serverless and Event-driven Application on AWS using AWS Lambda and the Serverless framework. The application showcases the use of various AWS services, such as DynamoDB, S3, Cognito, and API Gateway, to create a robust and scalable TODO application
+This project demonstrates the development and deployment of a Serverless and Event-driven Application on AWS using AWS Lambda and the Serverless framework. The application showcases the use of various AWS services, such as DynamoDB, S3, Cognito, and API Gateway, to create a robust and scalable TODO application.
