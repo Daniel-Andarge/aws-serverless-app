@@ -1,7 +1,7 @@
 # Serverless Application on AWS
 
 ## Project Overview
-This project involves the development and deployment of a Serverless and Event-driven Application on AWS using AWS Lambda and the Serverless framework. The application is  a TODO application that allows users to create, read, update, and delete TODO items, with the ability to attach images to each item.
+This project involves the development and deployment of a Serverless and Event-driven Application on AWS using AWS Lambda and the Serverless framework. The application is  a Task management application that allows users to create, read, update, and delete Tasks, with the ability to attach images to each Task.
 
 
 ## Technologies and Tools Used
@@ -31,7 +31,6 @@ This project leverages a wide range of technologies and tools, from development 
    - **Auth0**: External authentication service for implementing user authentication and authorization.
 
 4. **Development and Testing Tools**:
-   - **Code Editor**: Your preferred code editor, such as Visual Studio Code, Sublime Text, or IntelliJ IDEA.
    - **Git**: Version control system for tracking code changes and collaborating.
    - **npm**: Package manager for managing Node.js dependencies.
    - **Jest**: Testing framework for unit testing the application's components.
@@ -50,7 +49,7 @@ The `client` folder contains a web application that can interact with the API de
 To implement authentication in the application, you would need to integrate with an identity provider such as Auth0. The Serverless framework can be used to set up and configure the necessary AWS Cognito user pools and identity pools to handle user authentication and authorization.
 
 ## Serverless Application
-The core of this project is the implementation of the TODO application using AWS Lambda and the Serverless framework.
+The core of this project is the implementation of the Task management application using AWS Lambda and the Serverless framework.
 
 
 ## YAML File
@@ -60,16 +59,16 @@ The `serverless.yml` file is the configuration file used by the Serverless frame
 ### Functionality
 The application will allow users to perform the following operations on TODO items:
 
-- Create TODO items
-- Retrieve TODO items
-- Update TODO items
-- Delete TODO items
-- Optionally attach images to TODO items
+- Create Task items
+- Retrieve Task items
+- Update Task items
+- Delete Task items
+- Optionally attach images to Task items
 
-Each user will have access only to the TODO items they have created.
+Each user will have access only to the Task items they have created.
 
 ### Database
-The application uses an AWS DynamoDB table to store the TODO items.
+The application uses an AWS DynamoDB table to store the Task items.
 
 ### Deployment
 The Serverless framework is used to manage and deploy the various AWS resources required for the application, including:
@@ -113,7 +112,7 @@ The `client` folder contains the frontend web application, and the `backend` fol
 To get started with the project, follow these steps:
 
 1. Set up your AWS credentials and configure the Serverless framework.
-2. Implement the TODO application functionality in the `backend/functions` directory.
+2. Implement the Task application functionality in the `backend/functions` directory.
 3. Implement the frontend web application in the `client` directory.
 4. Deploy the serverless application using the Serverless framework.
 5. Test the application and make any necessary updates or improvements.
